@@ -1,0 +1,7 @@
+{
+  "name": "ionic-react-app-4",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
