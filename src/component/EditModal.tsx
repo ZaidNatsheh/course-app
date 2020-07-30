@@ -17,20 +17,21 @@ import {
 const EditModal: React.FC<{
   show: boolean;
   onCancel: () => void;
-  onSave: (goalText:string) => void;
+  onSave: (goalText: string) => void;
   editedGoal: { id: string; text: string } | null;
 }> = (props) => {
   const textRef = useRef<HTMLIonInputElement>(null);
   const [errorMassage, setErrorMassage] = useState("");
+
   const saveHandler = () => {
     const enteredText = textRef.current!.value;
-
     if (!enteredText || enteredText.toString().length === 0) {
       setErrorMassage("Plese Enter a valid text");
       return;
     }
-    // props.onSave(enteredText.toString())
-    console.log(enteredText.toString());
+    setErrorMassage('');
+    props.onSave(enteredText.toString());
+ 
   };
   return (
     <IonModal isOpen={props.show}>

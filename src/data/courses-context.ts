@@ -13,9 +13,10 @@ export interface Course {
 interface Context {
   courses: Course[];
   addCourse: (courseTitle : string,courseDate : Date) => void;
-  addGoal: () => void;
-  deleteGoal: () => void;
-  updateGoal: () => void;
+  addGoal: (courseId:string,goalText : string) => void;
+  deleteGoal: (courseId:string,goalId:string) => void;
+  updateGoal: (courseId:string,goalId:string,newText:string) => void;
+  changeCourseFilter : (courseId : string ,isIncluded:boolean)=>void;
 }
 
 const CourseContext = React.createContext<Context>({
@@ -24,6 +25,7 @@ const CourseContext = React.createContext<Context>({
   addGoal: () => {},
   deleteGoal: () => {},
   updateGoal: () => {},
+  changeCourseFilter : ()=>{},
 });
 
 export default CourseContext;

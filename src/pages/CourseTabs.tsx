@@ -19,7 +19,7 @@ const CourseTabs: React.FC = () => {
     <IonTabs>
       <IonRouterOutlet>
         <Switch>
-        <Redirect path="/courses" to="/courses/lists" exact />
+        <Redirect path="/courses" to="/courses/all-goals" exact />
         <Route path="/courses/lists" exact>
           <Courses />
         </Route>

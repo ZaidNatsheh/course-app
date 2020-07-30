@@ -7,22 +7,37 @@ import {
   IonPage,
   IonButtons,
   IonMenuButton,
-  IonItem,
+  IonItem,IonSpinner
 } from "@ionic/react";
 import { COURSE_DATA } from "./Courses";
+import { useSubscription,useQuery } from "@apollo/react-hooks";
+import gql from "graphql-tag";
 
-const AllGoals: React.FC = () => {
-  const goals = COURSE_DATA.map(course =>{
-    return course.goals
-  }).reduce((goalArr,nestedGoals) =>{
-    let updatedGoalArray = goalArr;
-    for (const goal of nestedGoals){
-      updatedGoalArray= updatedGoalArray.concat(goal);
-    } 
-    return updatedGoalArray;
-  },[])
+ const Filter_Goals = gql`
+ subscription mysub {
+  goals(where: {course: {isIncluded: {_eq: true}}}) {
+    text
+    course_id
+    id
+    course {
+      isIncluded
+    }
+  }
+}
+`; 
+const AllGoals: any = () => {
 
-  console.log(goals);
+  const { data, error, loading } = useSubscription(Filter_Goals);  if(loading){
+   return  <div className="spin">
+       <IonSpinner  className="ion-spinner" color="medium"   />
+    </div>
+   
+   
+}
+
+  if (error) return `Error! ${error}`;
+
+  
   return (
     <IonPage>
       <IonHeader>
@@ -34,7 +49,7 @@ const AllGoals: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent>
-        {goals.map( goal=> (<IonItem key={goal.id}>{goal.text}</IonItem>))}
+        {data.goals.map( (goal : any)=> (<IonItem key={goal.id}>{goal.text}</IonItem>))}
       </IonContent>
     </IonPage>
   );

@@ -14,6 +14,7 @@ import {
   IonIcon,
   IonFab,
   IonFabButton,
+  IonSpinner,
 } from "@ionic/react";
 import AddCourseModal from "../component/AddCourseModal";
 import { addOutline } from "ionicons/icons";
@@ -24,7 +25,7 @@ import CourseContext from "../data/courses-context";
 
 
 
-export const COURSE_DATA = [
+ export const COURSE_DATA = [
   {
     id: "c1",
     title: "Ionic React ",
@@ -52,7 +53,7 @@ export const COURSE_DATA = [
       { id: "c3g2", text: "learn alot!" },
     ],
   },
-];
+]; 
 const GET_COURSES=gql`
 subscription MySubscription {
   courses {
@@ -65,6 +66,7 @@ subscription MySubscription {
 
 const Courses: React.FC = () => {
   const [isAdding, setIsAdding] = useState(false);
+
  const courseCtx =  useContext(CourseContext)
   const startAddCourseHandler = () => {
     setIsAdding(true);
@@ -72,7 +74,11 @@ const Courses: React.FC = () => {
 
    const {data,error,loading} = useSubscription(GET_COURSES);
   if(loading){
-    return <div>loading...</div>
+   return  <div className="spin">
+       <IonSpinner  className="ion-spinner" color="medium"   />
+    </div>
+   
+   
 }
 if(error){
     return <div>Error...</div>
@@ -109,6 +115,7 @@ if(error){
           </IonToolbar>
         </IonHeader>
         <IonContent>
+       
           <IonGrid>
             {data.courses.map((course : any) => (
               <IonRow key={course.id}>
