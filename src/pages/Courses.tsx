@@ -19,7 +19,7 @@ import {
 import AddCourseModal from "../component/AddCourseModal";
 import { addOutline } from "ionicons/icons";
 import CourseItem from "../component/CourseItem";
-import { useSubscription } from "@apollo/react-hooks";
+import { useSubscription,useQuery } from "@apollo/react-hooks";
 import gql from 'graphql-tag';
 import CourseContext from "../data/courses-context";
 
@@ -55,7 +55,7 @@ import CourseContext from "../data/courses-context";
   },
 ]; 
 const GET_COURSES=gql`
-subscription MySubscription {
+query MySubscription {
   courses {
     id
     title
@@ -72,7 +72,7 @@ const Courses: React.FC = () => {
     setIsAdding(true);
   };
 
-   const {data,error,loading} = useSubscription(GET_COURSES);
+   const {data,error,loading} = useQuery(GET_COURSES);
   if(loading){
    return  <div className="spin">
        <IonSpinner  className="ion-spinner" color="medium"   />

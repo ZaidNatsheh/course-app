@@ -14,28 +14,31 @@ import {
   IonSpinner,
 } from "@ionic/react";
 import CourseContext from "../data/courses-context";
-import { useSubscription, useQuery } from "@apollo/react-hooks";
+import { useSubscription,useQuery } from "@apollo/react-hooks";
 import gql from "graphql-tag";
 
 const GET_COURSES = gql`
 query myQuery {
-    courses {
-      id
-      title
-      enrolled
-      isIncluded
-    }
+  courses(order_by: {title: asc}) {
+    id
+    title
+    enrolled
+    isIncluded
   }
+}
+
 `;
-const Filter: React.FC = () => {
+const Filter: any = () => {
   const coursesCtx = useContext(CourseContext);
 
-  const { data, error, loading } = useQuery(GET_COURSES);
- 
-
+  const { data, error, loading  } = useQuery(GET_COURSES,{
+    //notifyOnNetworkStatusChange: true
+    // fetchPolicy:  'network-only' 
+    pollInterval : 100
+  });
   const courseFilterChangeHandler = (event: CustomEvent) => {
     coursesCtx.changeCourseFilter(event.detail.value, event.detail.checked);
-    console.log(event);
+    //  refetch();
   };
   if (loading) {
     return (
@@ -44,9 +47,9 @@ const Filter: React.FC = () => {
       </div>
     );
   }
-  if (error) {
-    return <div>Error...</div>;
-  }
+  if (error) return `Error! ${error}`;
+  
+
   return (
     <IonPage>
       <IonHeader>
@@ -62,12 +65,11 @@ const Filter: React.FC = () => {
           {data.courses.map((course: any) => (
             <IonItem key={course.id}>
               <IonLabel>{course.title}</IonLabel>
-              {console.log(course.isIncluded)}
-              {console.log(course.title)}
               <IonToggle
-              checked={course.isIncluded}
+               checked={course.isIncluded}
                 value={course.id}
                 onIonChange={courseFilterChangeHandler}
+                // onClick={()=>refetch()}
               ></IonToggle>
             </IonItem>
           ))}

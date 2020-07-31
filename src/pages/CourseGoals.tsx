@@ -21,12 +21,12 @@ import { add } from "ionicons/icons";
 import { useParams } from "react-router-dom";
 import EditModal from "../component/EditModal";
 import EditableGoalItem from "../component/EditableGoalItem";
-import { useSubscription } from "@apollo/react-hooks";
+import { useSubscription,useQuery } from "@apollo/react-hooks";
 import gql from "graphql-tag";
 import CourseContext from "../data/courses-context";
 
 const GET_COURSE_GOALS = gql`
-  subscription coursegoal($id: uuid!) {
+  query coursegoal($id: uuid!) {
     goals(where: { course_id: { _eq: $id } }) {
       id
       text
@@ -50,8 +50,9 @@ const CourseGoals :any  = () => {
   const courseCtx = useContext(CourseContext);
   const selectedCourseId = useParams<{ courseId: string }>().courseId;
  
-  const { loading, error, data } = useSubscription(GET_COURSE_GOALS, {
+  const { loading, error, data } = useQuery(GET_COURSE_GOALS, {
     variables: { id: selectedCourseId },
+    pollInterval: 100
   });
 
   const saveGoalHandler = (text: string) => {

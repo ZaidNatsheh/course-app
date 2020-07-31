@@ -95,8 +95,6 @@ const CoursesContextProvider: React.FC = (props) => {
     });
   };
   const changeCourseFilter = (courseId: string, isIncluded: boolean) => {
-    console.log(courseId);
-    console.log(isIncluded);
     filterGoals({ variables: { courseId: courseId, isIncluded: isIncluded } });
   };
   return (
