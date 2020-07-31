@@ -72,7 +72,8 @@ const Courses: React.FC = () => {
     setIsAdding(true);
   };
 
-   const {data,error,loading} = useQuery(GET_COURSES);
+   const {data,error,loading} = useQuery(pollInterval: 100
+});
   if(loading){
    return  <div className="spin">
        <IonSpinner  className="ion-spinner" color="medium"   />
