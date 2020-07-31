@@ -152,7 +152,7 @@ const CourseGoals :any  = () => {
               <IonBackButton defaultHref="/courses/list" />
             </IonButtons>
             <IonTitle>
-              {selectedCourse ? selectedCourse : "No Course Found"}
+              {selectedCourse ? selectedCourse.toString(): "No Course Found"}
             </IonTitle>
             {!isPlatform("android") && (
               <IonButtons slot="end">
