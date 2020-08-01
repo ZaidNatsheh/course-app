@@ -42,7 +42,7 @@ const App: React.FC = () => (
       <IonTabs>
       <IonRouterOutlet id="main">
         <Switch>
-        <Redirect from="/" to="/courses/all-goals"  exact />
+        <Redirect path="/" to="/courses/all-goals"  exact />
         {/* <Redirect from="/courses" to="/courses/all-goals"  exact /> */}
         <Route path="/courses/lists" exact>
           <Courses />
@@ -54,13 +54,11 @@ const App: React.FC = () => (
         <Route path="/courses/:courseId">
           <CourseGoals />
         </Route>
-        <Route path="/courses" exact>
+       {/*  <Route path="/courses" exact>
             <CourseTabs />
-            {console.log("*courses from app")}
-          </Route>
+          </Route> */}
         <Route path="/filter" exact>
             <Filter />
-            {console.log("*f from app")}
           </Route>
        
         </Switch>
