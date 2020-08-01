@@ -19,41 +19,13 @@ import {
 import AddCourseModal from "../component/AddCourseModal";
 import { addOutline } from "ionicons/icons";
 import CourseItem from "../component/CourseItem";
-import { useSubscription,useQuery } from "@apollo/react-hooks";
+import { useQuery } from "@apollo/react-hooks";
 import gql from 'graphql-tag';
 import CourseContext from "../data/courses-context";
 
 
 
- export const COURSE_DATA = [
-  {
-    id: "c1",
-    title: "Ionic React ",
-    enrolled: new Date("09/10/2010"),
-    goals: [
-      { id: "c1g1", text: "finish the course" },
-      { id: "c1g2", text: "learn alot!" },
-    ],
-  },
-  {
-    id: "c2",
-    title: "Java Script",
-    enrolled: new Date("03/20/2019"),
-    goals: [
-      { id: "c2g1", text: "work hard" },
-      { id: "c2g2", text: "write code!" },
-    ],
-  },
-  {
-    id: "c3",
-    title: "React",
-    enrolled: new Date("05/16/2022"),
-    goals: [
-      { id: "c3g1", text: "finish the course" },
-      { id: "c3g2", text: "learn alot!" },
-    ],
-  },
-]; 
+
 const GET_COURSES=gql`
 query MySubscription {
   courses {
@@ -72,8 +44,9 @@ const Courses: React.FC = () => {
     setIsAdding(true);
   };
 
-   const {data,error,loading} = useQuery(pollInterval: 100
-});
+   const {data,error,loading} = useQuery(GET_COURSES,{
+     pollInterval : 100
+   });
   if(loading){
    return  <div className="spin">
        <IonSpinner  className="ion-spinner" color="medium"   />
@@ -144,3 +117,5 @@ if(error){
 };
 
 export default Courses;
+
+
