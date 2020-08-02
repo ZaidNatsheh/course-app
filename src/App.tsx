@@ -42,9 +42,9 @@ const App: React.FC = () => (
       <IonTabs>
       <IonRouterOutlet id="main">
         <Switch>
-         <Redirect path="/" to="/courses/all-goals"  exact /> 
+         
         {/* <Redirect from="/courses" to="/courses/all-goals"  exact /> */}
-        <Route path="/courses/lists" exact>
+        <Route path="/" exact>
           <Courses />
         </Route>
        
@@ -60,7 +60,7 @@ const App: React.FC = () => (
         <Route path="/filter" exact>
             <Filter />
           </Route>
-          <Redirect  to="/courses/all-goals"  exact />
+          <Redirect  to="/" />
         </Switch>
       </IonRouterOutlet>
       <IonTabBar slot="bottom">
@@ -68,7 +68,7 @@ const App: React.FC = () => (
           <IonIcon icon={list} />
           <IonLabel>All Goals</IonLabel>
         </IonTabButton>
-        <IonTabButton tab="courses" href="/courses/lists">
+        <IonTabButton tab="courses" href="/">
           <IonIcon icon={trophyOutline} />
           <IonLabel>Courses</IonLabel>
         </IonTabButton>
