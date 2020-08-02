@@ -42,25 +42,21 @@ const App: React.FC = () => (
       <IonTabs>
       <IonRouterOutlet id="main">
         <Switch>
-         
+         {/*  */}
         {/* <Redirect from="/courses" to="/courses/all-goals"  exact /> */}
-        <Route path="/" exact>
-          <Courses />
-        </Route>
-       
+        <Redirect path="/" to="/courses/all-goals"  exact /> 
         <Route path="/courses/all-goals" exact>
           <AllGoals />
+        </Route>
+        <Route path="/filter" exact>
+            <Filter />
+          </Route>
+        <Route path="/courses/lists" exact>
+          <Courses />
         </Route>
         <Route path="/courses/:courseId">
           <CourseGoals />
         </Route>
-       {/*  <Route path="/courses" exact>
-            <CourseTabs />
-          </Route> */}
-        <Route path="/filter" exact>
-            <Filter />
-          </Route>
-          <Redirect  to="/" />
         </Switch>
       </IonRouterOutlet>
       <IonTabBar slot="bottom">
@@ -68,25 +64,12 @@ const App: React.FC = () => (
           <IonIcon icon={list} />
           <IonLabel>All Goals</IonLabel>
         </IonTabButton>
-        <IonTabButton tab="courses" href="/">
+        <IonTabButton tab="courses" href="/courses/lists">
           <IonIcon icon={trophyOutline} />
           <IonLabel>Courses</IonLabel>
         </IonTabButton>
       </IonTabBar>
     </IonTabs>
-        {/* <IonRouterOutlet id="main">
-          {/* <Switch > 
-          <Route path="/filter" exact>
-            <Filter />
-            {console.log("*f from app")}
-          </Route>
-          <Route path="/courses" exact>
-            <CourseTabs />
-            {console.log("*courses from app")}
-          </Route>
-          <Redirect path="/" to="/courses" exact />
-          {/* </Switch> 
-        </IonRouterOutlet>{" "} */}
       </CoursesContextProvider>
     </IonReactRouter>
   </IonApp>
